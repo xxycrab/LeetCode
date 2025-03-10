@@ -5,7 +5,7 @@ class Solution {
             return heights[0];
         }
 
-        int[] leftSum = new int[n], rightSum = new int[n];
+        long[] leftSum = new long[n], rightSum = new long[n];
         leftSum[0] = heights[0];
         rightSum[n-1] = heights[n-1];
 
@@ -43,7 +43,7 @@ class Solution {
             towers.push(i);
         }
 
-        int maxSumOfHeights = 0;
+        long maxSumOfHeights = 0;
         for (int i = 0; i < n; i++) {
             maxSumOfHeights = Math.max(maxSumOfHeights, leftSum[i] + rightSum[i] - heights[i]);
         }
