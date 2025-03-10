@@ -13,7 +13,8 @@ class Solution {
         towers.push(0);
 
         for (int i = 1; i < n; i++) {
-            while (!towers.empty() && heights[towers.peek()] >= heights[i]) {
+            // Find the next smaller 
+            while (!towers.empty() && heights[towers.peek()] > heights[i]) {
                 towers.pop();
             }
             int leftNextSmaller = -1;
@@ -32,7 +33,7 @@ class Solution {
 
         for (int i = n - 2; i >= 0; i--) {
             int rightNextSmaller = n;
-            while (!towers.empty() && heights[towers.peek()] >= heights[i]) {
+            while (!towers.empty() && heights[towers.peek()] > heights[i]) {
                 towers.pop();
             }
             if (!towers.empty()) {

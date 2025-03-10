@@ -54,3 +54,6 @@ $\color{yellow}Medium$ **[array]** **[stack]** **[monotonic-stack]**
 
 -------
 
+Monotonic Stack
+
+M
