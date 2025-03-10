@@ -13,10 +13,11 @@ class Solution {
         towers.push(0);
 
         for (int i = 1; i < n; i++) {
-            // Find the next smaller 
+            // Find the next smaller one on the left
             while (!towers.empty() && heights[towers.peek()] > heights[i]) {
                 towers.pop();
             }
+            // Sum of heights = current heights * number of towers in between + leftSum of next smaller one on the left
             int leftNextSmaller = -1;
             if (!towers.empty()) {
                 leftNextSmaller = towers.peek();
