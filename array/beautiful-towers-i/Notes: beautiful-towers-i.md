@@ -55,3 +55,25 @@ $\color{yellow}Medium$ **[array]** **[stack]** **[monotonic-stack]**
 -------
 
 ## Monotonic Stack
+
+单调栈通常用来解决“查找下一个/前一个较大/小元素”的问题。在扫描数组的同时维护一个单调递减/递增的stack用来保存和查找比当前更大/更小的元素
+
+```
+// 得到每个元素之前的较大元素
+int[] calculateGreaterElementAhead(int[] nums) {
+    int n = nums.length;
+    // 存放答案的数组
+    int[] res = new int[n];
+    Stack<Integer> s = new Stack<>(); 
+    for (int i = 0; i <n; i--) {
+        // 判定大小关系，出栈直到比当前元素大
+        while (!s.isEmpty() && s.peek() <= nums[i]) {
+            s.pop();
+        }
+        // nums[i] 前面的更大元素
+        res[i] = s.isEmpty() ? -1 : s.peek();
+        s.push(nums[i]);
+    }
+    return res;
+}
+```
