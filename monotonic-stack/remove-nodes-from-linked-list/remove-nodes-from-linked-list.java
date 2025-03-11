@@ -14,19 +14,19 @@ class Solution {
             return head;
         }
 
-        Stack<ListNode> st = new Stack<>();
+        Stack<ListNode> prevGreater = new Stack<>();
         
         while(head != null) {
-            while(!st.empty() && st.peek().val < head.val) {
-                st.pop();
+            while(!prevGreater.empty() && prevGreater.peek().val < head.val) {
+                prevGreater.pop();
             }
-            st.push(head);
+            prevGreater.push(head);
             head = head.next;
         }
 
         ListNode node = null;
-        while(!st.empty()) {
-            ListNode prev = st.pop();
+        while(!prevGreater.empty()) {
+            ListNode prev = prevGreater.pop();
             prev.next = node;
             node = prev;
         }
