@@ -22,7 +22,7 @@ class Solution {
             }
         }
         if (sb.length() == 0 || sb.charAt(0) == '0') {
-            return String.valueOf(maxSingle);
+            return String.valueOf(Math.max(maxSingle, 0));
         } else {
             if (maxSingle >= 0) {
                 sb.append(String.valueOf(maxSingle));
