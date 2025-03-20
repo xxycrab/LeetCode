@@ -30,6 +30,7 @@ class Solution {
         int[] lcs = new int[n];
         int[] last = new int[n];
         last[0] = text1.charAt(0) == text2.charAt(0) ? 1 : 0;
+        lcs[0] = text1.charAt(0) == text2.charAt(0) ? 1 : 0;
         for (int i = 1; i < n; i++) {
             last[i] = text1.charAt(0) == text2.charAt(i) ? 1 : last[i - 1];
         }
