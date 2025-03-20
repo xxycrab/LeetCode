@@ -48,3 +48,17 @@ $\color{yellow}Medium$ **[string]** **[dynamic-programming]**
 
 -------
 
+## LCS 最长公共子序列
+
+```
+if a[i] == b[j]:
+    lcs[i][j] = lcs[i-1][j-1] + 1
+else:
+	 lcs[i][j] = max(lcs[i-1][j], lcs[i][j-1])
+```
+
+- 空间优化：
+	- 计算lcs[i][j]其实只需要保存lcs[i-1][j]，所以空间复杂度可以优化为O(N);
+  - 如果我们需要返回这个最长公共子序列，则至少需要O(NM)的空间复杂度来保存每一步的选择从而得到子序列
+
+- 相似问题: 最短编辑距离
