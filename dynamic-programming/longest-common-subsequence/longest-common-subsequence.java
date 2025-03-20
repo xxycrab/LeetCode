@@ -29,12 +29,14 @@ class Solution {
         int m = text1.length(), n = text2.length();
         int[] lcs = new int[n];
         int[] last = lcs;
-        lcs[0] = text1.charAt(0) == text2.charAt(0) ? 1 : 0;
+        last[0] = text1.charAt(0) == text2.charAt(0) ? 1 : 0;
         for (int i = 1; i < n; i++) {
             last[i] = text1.charAt(0) == text2.charAt(i) ? 1 : lcs[i-1];
         }
 
         for (int i = 1; i < m; i++) {
+            lcs = new int[n];
+            lcs[0] = text1.charAt(i) == text2.charAt(0) ? 1 : 0;
             for (int j = 1; j < n; j++) {
                 if (text1.charAt(i) == text2.charAt(j)) {
                     lcs[j] = last[j - 1] + 1;
@@ -42,9 +44,10 @@ class Solution {
                     lcs[j] = Math.max(last[j], lcs[j - 1]);
                 }
             }
-            for (int j = 0; j < n; j++) {
+            for (int j = 1; j < n; j++) {
                 last[j] = lcs[j];
             }
+        
         }
 
         return lcs[n - 1];
