@@ -28,7 +28,7 @@ class Solution {
         int length = 1;
         while (!q.isEmpty()) {
             String gene = q.poll();
-            if (gene.equals("#")) {
+            if (gene.equals("#") && !q.isEmpty()) {
                 length++;
                 q.add("#");
                 continue;
@@ -44,8 +44,6 @@ class Solution {
                     q.add(g);
                 }
             }
-            
-            
         }
 
         return -1;
