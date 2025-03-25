@@ -30,6 +30,7 @@ class Solution {
             String gene = q.poll();
             if (gene.equals("#")) {
                 length++;
+                q.add("#");
                 continue;
             }
             if (validMutations.get(gene).size() == 0) {
@@ -43,7 +44,7 @@ class Solution {
                     q.add(g);
                 }
             }
-            q.add("#");
+            
             
         }
 
