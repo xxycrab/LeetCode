@@ -24,10 +24,14 @@ class Solution {
 
         Queue<String> q = new LinkedList<>();
         q.add(startGene);
-        int length = 0;
+        q.add("#");
+        int length = 1;
         while (!q.isEmpty()) {
             String gene = q.poll();
-            length++;
+            if (gene.equals("#")) {
+                length++;
+                continue;
+            }
             while (!validMutations.get(gene).isEmpty()) {
                 String g = validMutations.get(gene).poll();
                 if (g.equals(endGene)) {
@@ -36,6 +40,7 @@ class Solution {
                     q.add(g);
                 }
             }
+            q.add("#");
         }
 
         return length > 0 ? length : -1;
