@@ -43,7 +43,7 @@ class Solution {
             q.add("#");
         }
 
-        return length > 0 ? length : -1;
+        return -1;
 
     }
 
