@@ -28,9 +28,9 @@ class Solution {
         int length = 1;
         while (!q.isEmpty()) {
             String gene = q.poll();
-            if (gene.equals("#") && !q.isEmpty()) {
+            if (gene.equals("#")) {
                 length++;
-                q.add("#");
+                if (!q.isEmpty()) q.add("#");
                 continue;
             }
             if (validMutations.get(gene).size() == 0) {
