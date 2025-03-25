@@ -32,6 +32,9 @@ class Solution {
                 length++;
                 continue;
             }
+            if (validMutations.get(gene).size() == 0) {
+                continue;
+            }
             while (!validMutations.get(gene).isEmpty()) {
                 String g = validMutations.get(gene).poll();
                 if (g.equals(endGene)) {
@@ -41,6 +44,7 @@ class Solution {
                 }
             }
             q.add("#");
+            
         }
 
         return -1;
