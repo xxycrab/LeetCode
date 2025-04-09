@@ -23,6 +23,11 @@ class Solution {
         return canDo;
     }
 
+    /* 
+        Note: availableSupplies use a map with Boolean value, which means each ingredient has 3 possible values: true, false, null.
+        This is exactly how DFS executes in a graph, that nodes are initially 'white', 
+        become 'grey' when start being processed and become 'black' after all nodes linked to it are evaluated
+    */
     private boolean canMake(String recipe, Map<String, Boolean> availableSupplies,
             Map<String, List<String>> requiredIngredients) {
         if (requiredIngredients.get(recipe) == null) {
