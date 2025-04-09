@@ -23,19 +23,26 @@ class Solution {
         return canDo;
     }
 
-    private boolean canMake(String recipe, Map<String, Boolean> availableSupplies,  Map<String, List<String>> requiredIngredients) {
+    private boolean canMake(String recipe, Map<String, Boolean> availableSupplies,
+            Map<String, List<String>> requiredIngredients) {
         if (requiredIngredients.get(recipe) == null) {
             return false;
         }
         for (String ingred : requiredIngredients.get(recipe)) {
             if (availableSupplies.get(ingred) == null) {
+                availableSupplies.put(recipe, false);
                 if (canMake(ingred, availableSupplies, requiredIngredients)) {
-                    availableSupplies.put(recipe, true);
+                    availableSupplies.put(ingred, true);
                 } else {
+                    return false;
+                }
+            } else {
+                if (!availableSupplies.get(ingred)) {
                     return false;
                 }
             }
         }
+        availableSupplies.put(recipe, true);
         return true;
     }
 }
