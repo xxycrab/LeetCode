@@ -49,6 +49,17 @@ It takes 4 minutes for the whole tree to be infected so we return 4.
 
 -------
 
+### Analysis
+
+We can return a negative depth when we encounter the start node. This will flag that we have found the start node, and as we traverse the tree, whenever we encounter a negative depth, we know the subtree contains the start node.
+
+There are four main cases:
+
+1. If root is null, return 0.
+2. root.val = start. If so, we return depth = -1 to signify this is the start node. In this way, in subsequent recursive calls, the parent node of the start node will know whether its child nodes contain the start node. Here we are also able to calculate the maxDistance of any node in the start node's subtree by finding the max of the left and right depth.
+3. The left and right depth are both non-negative. If they are, we know the start node is not in this subtree, and we can set depth = max(leftDepth, rightDepth) just like with the basic max depth.
+4. The final case is when the root is not the start node, but its subtree contains the start node. In this case, we will set depth = min(leftDepth, rightDepth) - 1, which will give us a negative number, the absolute value of which represents the distance of the start node to the root node. To calculate the distance from the start node to the furthest node in the other subtree, we will add the absolute value of the negative depth of the subtree that contains the start node, and the positive depth of the other subtree, for convenience, we can directly take the absolute value of two values. Then, we update maxDistance with distance if it is larger.
+
 ### Algorithm
 1. Declare a variable `maxDistance` to store maximum distance from the start node.
 2. Define a function `traverse` that performs a depth-first search of the tree that returns depth and calculates and saves `maxDistance`.
