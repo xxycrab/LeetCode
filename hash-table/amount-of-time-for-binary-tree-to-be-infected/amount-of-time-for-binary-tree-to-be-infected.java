@@ -14,36 +14,34 @@
  * }
  */
 class Solution {
-    public int amountOfTime(TreeNode root, int start) {
-        int[] leftTraverse = traverse(root.left, start);
-        int[] rightTraverse = traverse(root.right, start);
 
-        int leftHeight = leftTraverse[0];
-        int rightHeight = rightTraverse[0];
-        System.out.println(rightTraverse[0]);
-        System.out.println(rightTraverse[1]);
-        if (leftTraverse[1] > 0) {
-            return Math.max(leftHeight - leftTraverse[1] + Math.max(rightHeight + 1, leftHeight - leftTraverse[1]), leftTraverse[1] - 1);
-        }
-        if (rightTraverse[1] > 0) {
-            return Math.max(rightHeight - rightTraverse[1] + Math.max(leftHeight + 1, rightHeight - rightTraverse[1]), rightTraverse[1] - 1);
-        }
-        return Math.max(leftHeight, rightHeight);
+    private int maxDistance = 0;
+
+    public int amountOfTime(TreeNode root, int start) {
+        traverse(root, start);
+        return maxDistance;
     }
 
-    private int[] traverse(TreeNode root, int start) {
+    public int traverse(TreeNode root, int start) {
+        int depth = 0;
         if (root == null) {
-            return new int[] { 0, 0 };
+            return depth;
         }
-        int[] leftTraverse = traverse(root.left, start);
-        int[] rightTraverse = traverse(root.right, start);
-        int startHeight = 0;
+
+        int leftDepth = traverse(root.left, start);
+        int rightDepth = traverse(root.right, start);
+
         if (root.val == start) {
-            startHeight = 1 + Math.max(leftTraverse[0], rightTraverse[0]);
+            maxDistance = Math.max(leftDepth, rightDepth);
+            depth = -1;
+        } else if (leftDepth >= 0 && rightDepth >= 0) {
+            depth = Math.max(leftDepth, rightDepth) + 1;
         } else {
-            startHeight = Math.max(leftTraverse[1], rightTraverse[1]);
+            int distance = Math.abs(leftDepth) + Math.abs(rightDepth);
+            maxDistance = Math.max(maxDistance, distance);
+            depth = Math.min(leftDepth, rightDepth) - 1;
         }
-        int found = leftTraverse[1] > 0 || rightTraverse[1] == 1 ? 1 : 0;
-        return new int[] { 1 + Math.max(leftTraverse[0], rightTraverse[0]), startHeight };
+
+        return depth;
     }
 }
