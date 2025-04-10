@@ -20,13 +20,13 @@ class Solution {
 
         int leftHeight = leftTraverse[0];
         int rightHeight = rightTraverse[0];
-        System.out.println(leftTraverse[0]);
-        System.out.println(leftTraverse[1]);
+        System.out.println(rightTraverse[0]);
+        System.out.println(rightTraverse[1]);
         if (leftTraverse[1] > 0) {
-            return Math.max(leftHeight - leftTraverse[1] + rightHeight + 1, leftTraverse[1] - 1);
+            return Math.max(leftHeight - leftTraverse[1] + Math.max(rightHeight + 1, leftHeight - leftTraverse[1]), leftTraverse[1] - 1);
         }
         if (rightTraverse[1] > 0) {
-            return Math.max(rightHeight - rightTraverse[1] + leftHeight + 1, rightTraverse[1] - 1);
+            return Math.max(rightHeight - rightTraverse[1] + Math.max(leftHeight + 1, rightHeight - rightTraverse[1]), rightTraverse[1] - 1);
         }
         return Math.max(leftHeight, rightHeight);
     }
