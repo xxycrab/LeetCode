@@ -49,3 +49,22 @@ It takes 4 minutes for the whole tree to be infected so we return 4.
 
 -------
 
+### Algorithm
+1. Declare a variable `maxDistance` to store maximum distance from the start node.
+2. Define a function `traverse` that performs a depth-first search of the tree that returns depth and calculates and saves `maxDistance`.
+  - For each call to traverse, we have a new root and declare a variable depth = 0.
+  - If root == null set depth = 0 and return.
+  - Recursively call traverse with root.right and save in the variable rightDepth.
+  - Recursively call traverse with root.left and save in the variable leftDepth.
+  - If root = start the root is the start node:
+    - Set maxDistance = max(leftDepth, rightDepth) to calcualte the start node's max depth.
+    - Set depth = -1 to signify this is the start node.
+  - If the leftDepth and rightDepth are both greater than or equal to 0, the start node is not in this subtree:
+    - Set depth = max(leftDepth, rightDepth) + 1 to calculate the current root's max depth.
+  - Else, the current root's subtree contains the start node:
+    - Define a variable distance as the sum of abs(leftDepth) and abs(rightDepth), which is the distance of the furthest node in the other subtree.
+    - Set maxDistance = max(maxDistance, distance) to update maxDistance if distance is larger.
+    - Set depth = min(leftDepth, rightDepth) - 1 to calculate a negative number that signifies the subtree contains the start node and represents the distance of the start node from the root.
+  - return depth.
+3. Call traverse(root, start).
+4. Return maxDistance.
