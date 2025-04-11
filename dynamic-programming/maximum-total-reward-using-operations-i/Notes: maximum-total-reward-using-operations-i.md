@@ -49,3 +49,9 @@ $\color{yellow}Medium$ **[array]** **[dynamic-programming]**
 
 -------
 
+
+`dp[i][r]` represent the max total reward starting from `i-th` item when current reward is `r`
+
+if `i-th` item is not picked, `dp[i][r] = dp[i+1][r]`
+`i-th` item can only be picked if `reward[i] > r`. When it's picked, `dp[i][r] = dp[i+1][r+reward[i]]`
+therefore, `dp[i][t] = max(dp[i+1][r], reward[i] > r? dp[i+1][r+reward[i]]:0)`
