@@ -38,6 +38,7 @@ class Solution {
         return count;
     }
 
+    // dijstra shortest path algorithm. Record count of paths to each node during the process.
     private void dijkstra(int n, Map<Integer, Map<Integer, Integer>> adj, long[] distances, int[] pathCounts) {
         PriorityQueue<long[]> minHeap = new PriorityQueue<>(n, Comparator.comparingLong(a -> a[0]));
         minHeap.offer(new long[]{0, 0});
