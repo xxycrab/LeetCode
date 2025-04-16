@@ -56,7 +56,7 @@ class Solution {
                     if(pathCounts[v] == -1) {
                         pathCounts[v] = 0;
                     }
-                    pathCounts[v] += pathCounts[u];
+                    pathCounts[v] = (pathCounts[v] + pathCounts[u]) % 1_000_000_007;
                 }
             }
         }
