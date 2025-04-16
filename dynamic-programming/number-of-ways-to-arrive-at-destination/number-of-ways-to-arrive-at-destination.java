@@ -27,21 +27,28 @@ class Solution {
 
         bellmanFord(n, roads, distances, successors);
 
-        return sumPaths(0, n-1, distances, adj);
+        int[] explored = new int[n];
+        Arrays.fill(explored, -1);
+        return sumPaths(0, n-1, distances, adj, explored);
     }
 
-    private int sumPaths(int s, int t, long[] distances, Map<Integer, Map<Integer,Integer>> adj) {
+    private int sumPaths(int s, int t, long[] distances, Map<Integer, Map<Integer,Integer>> adj, int[] explored) {
         if (s == t) {
             return 1;
         }
-        int res = 0;
+        if(explored[s] != -1) {
+            return explored[s];
+        }
+        long res = 0;
         for (Map.Entry<Integer, Integer> edge : adj.get(s).entrySet()) {
             int v = edge.getKey(), weight = edge.getValue();
             if(distances[v] == distances[s] + weight) {
-                res += sumPaths(v, t, distances, adj);
+                res += sumPaths(v, t, distances, adj, explored);
+                 res %= 1_000_000_007;
             }
         }
-        return res;
+        explored[s] = (int)res;
+        return (int)res;
     }
 
     private void bellmanFord(int n, int[][] E, long[] distances, long[] successors) {
