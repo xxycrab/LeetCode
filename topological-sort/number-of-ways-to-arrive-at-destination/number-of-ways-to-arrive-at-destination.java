@@ -33,7 +33,7 @@ class Solution {
 
         pathCounts[0] = 1;
         dijkstra(n, adj, distances, pathCounts);
-        count = pathCounts[n-1];
+        count = pathCounts[n - 1];
 
         return count;
     }
@@ -46,21 +46,23 @@ class Solution {
             int u = (int)top[1];
             long d = top[0];
 
-            for(Map.Entry<Integer, Integer> edge : adj.get(u).entrySet()) {
-                int v = edge.getKey(), w = edge.getValue();
-                if (d + w < distances[v]) {
-                    distances[v] = d + w;
-                    minHeap.offer(new long[]{distances[v], v});
-                    pathCounts[v] = pathCounts[u];
-                } else if (d + w == distances[v]) {
-                    if(pathCounts[v] == -1) {
-                        pathCounts[v] = 0;
+            if(adj.get(u) != null) {
+
+                for(Map.Entry<Integer, Integer> edge : adj.get(u).entrySet()) {
+                    int v = edge.getKey(), w = edge.getValue();
+                    if (d + w < distances[v]) {
+                        distances[v] = d + w;
+                        minHeap.offer(new long[]{distances[v], v});
+                        pathCounts[v] = pathCounts[u];
+                    } else if (d + w == distances[v]) {
+                        if(pathCounts[v] == -1) {
+                            pathCounts[v] = 0;
+                        }
+                        pathCounts[v] = (pathCounts[v] + pathCounts[u]) % 1_000_000_007;
                     }
-                    pathCounts[v] = (pathCounts[v] + pathCounts[u]) % 1_000_000_007;
                 }
             }
         }
-
     }
 
     // DP - find number of pathes from s to t that has the length of distance[t], i.e. cound of shortest paths
