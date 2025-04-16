@@ -16,10 +16,10 @@ class Solution {
         }
 
 
-        int[] successors = new int[n];
-        int[] distances = new int[n];
+        long[] successors = new long[n];
+        long[] distances = new long[n];
         Arrays.fill(successors, -1);
-        Arrays.fill(distances, Integer.MAX_VALUE);
+        Arrays.fill(distances, Long.MAX_VALUE);
         distances[0] = 0;
         
         // This doesn't work. DAG only works when there's no cycle in the group
@@ -30,7 +30,7 @@ class Solution {
         return sumPaths(0, n-1, distances, adj);
     }
 
-    private int sumPaths(int s, int t, int[] distances, Map<Integer, Map<Integer,Integer>> adj) {
+    private int sumPaths(int s, int t, long[] distances, Map<Integer, Map<Integer,Integer>> adj) {
         if (s == t) {
             return 1;
         }
@@ -44,15 +44,15 @@ class Solution {
         return res;
     }
 
-    private void bellmanFord(int n, int[][] E, int[] distances, int[] successors) {
+    private void bellmanFord(int n, int[][] E, long[] distances, long[] successors) {
         for (int i = 0; i < n - 1; i++) {
             for (int[] e: E) {
                 int u = e[0], v = e[1], w = e[2];
-                if (distances[v] > distances[u] + w) {
+                if (distances[u] != Long.MAX_VALUE && distances[v] > distances[u] + w) {
                     distances[v] = distances[u] + w;
                     successors[v] = u;
                 }
-                if (distances[u] > distances[v] + w) {
+                if (distances[v] != Long.MAX_VALUE && distances[u] > distances[v] + w) {
                     distances[u] = distances[v] + w;
                     successors[u] = v;
                 }
@@ -60,7 +60,7 @@ class Solution {
         }
     }
 
-    private void DAG(int n,Map<Integer, Map<Integer,Integer>> adj, int[] distances, int[] successors) {
+    private void DAG(int n,Map<Integer, Map<Integer,Integer>> adj, long[] distances, long[] successors) {
         int[] sorted = topologySort(n, adj);
 
         for (int u : sorted) {
@@ -71,7 +71,7 @@ class Solution {
                 }
             }
         }
-        for (int u : distances) {
+        for (long u : distances) {
             System.out.println(u);
         }
     }
