@@ -46,8 +46,11 @@ class Solution {
             int u = (int)top[1];
             long d = top[0];
 
-            if(adj.get(u) != null) {
+            if (d > distances[u]) {
+                continue;
+            }
 
+            if(adj.get(u) != null) {
                 for(Map.Entry<Integer, Integer> edge : adj.get(u).entrySet()) {
                     int v = edge.getKey(), w = edge.getValue();
                     if (d + w < distances[v]) {
