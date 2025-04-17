@@ -39,6 +39,7 @@ class Solution {
     }
 
     // dijstra shortest path algorithm. Record count of paths to each node during the process.
+    // This can work because dijstra is kind of greedy that when a node is added to Q, the distance is guaranteed to have been optimized
     private void dijkstra(int n, Map<Integer, Map<Integer, Integer>> adj, long[] distances, int[] pathCounts) {
         PriorityQueue<long[]> minHeap = new PriorityQueue<>(n, Comparator.comparingLong(a -> a[0]));
         minHeap.offer(new long[]{0, 0});
@@ -47,7 +48,9 @@ class Solution {
             int u = (int)top[1];
             long d = top[0];
 
-            if (d > distances[u]) {
+            // This is important as a node can be added to queue more than once but it should be processed only once
+            // Given dijkstra is greedy, as long as u.d is smaller, it means it's already processed
+            if (d > distances[u]) { 
                 continue;
             }
 

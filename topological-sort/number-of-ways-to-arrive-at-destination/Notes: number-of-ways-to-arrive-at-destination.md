@@ -47,3 +47,68 @@ The four ways to get there in 7 minutes are:
 
 -------
 
+## 最短路径
+
+对每个结点维持属性`v.d`用来记录从源结点s到v的最短路径上界，初始化为正无穷; 用`v.p`记录在路径中的前驱结点，初始化为`nil`
+
+松弛操作 - 对一条权重为w(u, v)的边(u,v)的松弛relax(u, v, w)过程为：
+```
+if v.d > u.d + w(u,v):
+	v.d = u.d + w(u, v)
+	v.p = u
+```
+
+### Bellman-Ford
+一般情况下的单源最短路径，通过对所有的边进行|V|-1次松弛操作，得到源点s到图中所有其他节点的最短路径
+
+```
+boolean shortestPaths(E, V, w, s):
+	for each v in V-s:
+		v.d = INF
+		v.p = nil
+
+	s.d = 0
+
+	for i = 1...|V|-1:
+		for each e in E:
+			relax(u, v, w)
+	for each e in E:
+		if v.d > u.d + w(u, v):
+			return false // 图中有权重为负的环，该问题无解
+	return true // 图中不存在权重为负值的环
+```
+
+### DAG
+有向无环图中的单源最短路径，首先对所有结点进行拓扑排序，接着按照拓扑序遍历结点并对每个结点的所有边进行一次松弛
+
+```
+void dag(E, V, w, s):
+	for each v in V-s:
+		v.d = INF
+		v.p = nil
+	s.d = 0
+
+	sortedV = topologySort(E, V, s)
+
+	for each u in sortedV:
+		for each v connected to u:
+			relax(u, v, w)
+```
+
+### Dijkstra
+所有边权重非负的有向图的单源最短路径。维持一个结点集合S，重复从V-S中寻找v.d最小的node加入S，并对所有从v出发的边进行松弛
+算法的复杂度取决于如何不停地在更新后寻找v.d最小的结点，因此可以运用优先队列
+
+```
+void dijkstra(E, V, w, s):
+	for each v in V-s:
+		v.d = INF
+		v.p = nil
+	S = []
+	Q = V // priority queue
+	while not Q.empty:
+		u = Q.pop();
+		append(S, u)
+		for each v connected to u:
+			relax(u, v, w)
+```
