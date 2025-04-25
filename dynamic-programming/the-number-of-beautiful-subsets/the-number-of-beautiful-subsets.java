@@ -23,13 +23,10 @@ class Solution {
         return totalCount - 1;
     }
 
-    private int countBeautifulSubsets(
-            ArrayList<Pair<Integer, Integer>> subsets,
-            int numSubsets,
-            int difference,
+    private int countBeautifulSubsets(ArrayList<Pair<Integer, Integer>> subsets, int numSubsets, int difference,
             int i) {
         // Base case: Return 1 for a subset of size 1
-        if (i == numSubsets) {
+        if (i == subsets.size()) {
             return 1;
         }
 
