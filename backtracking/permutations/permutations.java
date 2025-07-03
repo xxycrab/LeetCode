@@ -1,5 +1,6 @@
 
 import java.util.Map.Entry;
+
 class Solution {
     // public List<List<Integer>> permute(int[] nums) {
     //     List<List<Integer>> res = new ArrayList<>();
@@ -46,14 +47,14 @@ class Solution {
         if (first == n) {
             res.add(new ArrayList<Integer>(output));
         }
+
         for (int i = first; i < n; i++) {
-            // 动态维护数组
+            // 交换first和i的顺序
             Collections.swap(output, first, i);
-            // 继续递归填下一个数
+            // 继续递归从下一个位置进行交换
             backtrack(n, output, res, first + 1);
             // 撤销操作
             Collections.swap(output, first, i);
         }
     }
 }
-
